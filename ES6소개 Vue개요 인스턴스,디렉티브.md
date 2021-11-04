@@ -89,7 +89,7 @@
 > DOM은 리얼 DOM 과 가상 DOM으로 나뉘어지는데 리얼 돔은 사용자가 실제로 보는 곳이고 가상 DOM은 Vue가 관리하는 곳이라고 생각하면 된다.
 > 리얼 DOM에 데이터가 바뀌면 가상 DOM의 데이터가 바뀌게 되고 바뀐 값을 리얼DOM으로 맵핑한다.
 
-##\# Vue 인스턴스 Life Cycle
+### Vue 인스턴스 Life Cycle
 1. Instance의 생성
 2. Instance를 화면에 부착
 3. 화면에 부착된 Instance의 내용을 갱신
