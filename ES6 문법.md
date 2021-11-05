@@ -12,12 +12,13 @@
   - [Destructuring](#destructuring)
   - [스프레드 연산자](#스프레드-연산자)
   - [promise](#promise)
+  - [Module](#module)
   - [정리하면서 필요한 부분 정리](#정리하면서-필요한-부분-정리)
     - [callback 함수란?](#callback-함수란)
     - [자바스크립트에서 use strict 이란?](#자바스크립트에서-use-strict-이란)
     - [slice() 함수](#slice-함수)
-    - [javaScript map() 함수](#javascript-map-함수)
-    - [비동기 처러? 그게 뭔데](#비동기-처러-그게-뭔데)
+    - [map() 함수](#map-함수)
+    - [비동기 처리? 그게 뭔데](#비동기-처리-그게-뭔데)
 
 ---
 <br>
@@ -548,13 +549,13 @@ console.log(currentState); // {name: "영희", species: "human", age: 11}
 > 프로미스는 자바스크립트 비동기 처리에 사용되는 객체이다.  
 > 비동기 처리란? '특정 코드의 실행이 완료될 때까지 기다리지 않고 다음 코드를 먼저 수행하는 자바스크립트의 특성`을 의미한다.  
 
-[비동기 처리 그게 뭔데?](#비동기-처러-그게-뭔데)
+[비동기 처리 그게 뭔데?](#비동기-처리-그게-뭔데)
 
 Promise는 왜 필요할까?
 - 프로미스는 주로 서버에서 받아온 데이터를 화면에 표시할 때 사용한다.  
 - 일반적으로 웹 앱플리케이션 구현할 때 서버에서 데이터를 요청하고 받아오기 위해 아래와 같은 API를 사용한다.
 ```js
-// url 주소에 pathVariance 로 요청하는 방식
+// url 주소에 pathvariable 로 요청하는 방식
 $.get('url 주소/products/1', function(response) {
    // ... 
 });
@@ -564,8 +565,119 @@ $.get('url 주소/products/1', function(response) {
 - 이와 같은 문제점을 해결하기 위한 방법 중 하나가 프로미스 입니다.
 
 
+프로미스 코드 - 기초  
+예제 코드
+```js
+function getData(callbackFunc) {
+  $.get('url 주소/products/1', function(response) {
+    callbackFunc(response); // 서버에서 받은 데이터 response를 callbackFunc() 함수에 넘겨줌
+  });
+}
+
+getData(function(tableData) {
+  console.log(tableData); // $.get()의 response 값이 tableData에 전달됨
+});
+```
+위 코드는 promise 대신에 콜백 함수를 사용해서 구현한것   
+
+프로미스 코드를 적용하면 아래와 같은 코드가 된다.
+```js
+function getData(callback) {
+  // new Promise() 추가
+  return new Promise(function(resolve, reject) {
+    $.get('url 주소/products/1', function(response) {
+      // 데이터를 받으면 resolve() 호출
+      resolve(response);
+    });
+  });
+}
+
+// getData()의 실행이 끝나면 호출되는 then()
+getData().then(function(tableData) {
+  // resolve()의 결과 값이 여기로 전달됨
+  console.log(tableData); // $.get()의 reponse 값이 tableData에 전달됨
+});
+```
+콜백 함수로 처리한던 구조에서 프로미스 API를 사용한 구조로 바뀌었다.  
+
+
+<br>
+
+프로미스의 3가지 상태 
+1. Pending(대기) : 비동기 처리 로직이 아직 완료되지 않은 상태
+2. Fulfilled(이행) : 비동기 처리가 완료되어 프로미스가 결과 값을 반환해준 상태
+3. Rejected(실패) : 비동기 처리가 실패하거나 오류가 발생한 상태
+
+<br>
+
+Pending(대기)  
+
+```js
+new Promise(); // 메서드를 호출하면 대기 상태가 된다.
+
+// promise() 메서드를 호출할 떄 콜백 함수를 선언할 수 있다.
+// 콜백 함수의 인자는 resolve, reject 이다.
+new Promise(function(resolve, reject) {
+    /// ...
+})
+```
+
+<br>
+
+Fulfilled(이행)
+```js
+function getData() {
+  return new Promise(function(resolve, reject) {
+    var data = 100;
+    resolve(data); // resolve를 아래와 같이 이행(Fufilled) 상태가 됩니다.
+  });
+}
+
+// resolve()의 결과 값 data를 resolvedData로 받음
+// then()을 이용하여 처리 결과 값을 받을 수 있다.
+getData().then(function(resolvedData) {
+  console.log(resolvedData); // 100
+});
+```
+
+<br>
+
+Rejected(실패)
+
+- 여기서 rejec를 호출하면 실패(Rejected) 상태가 된다.
+
+```js
+function getData() {
+  return new Promise(function(resolve, reject) {
+    reject(new Error("Request is failed"));
+  });
+}
+
+// reject()의 결과 값 Error를 err에 받음
+getData().then().catch(function(err) {
+  console.log(err); // Error: Request is failed
+});
+```
+
+<br>
+
+프로미스 처리 흐름
+
+<br>
+
+![image](https://user-images.githubusercontent.com/44612896/140480549-1fbbc7dd-eecd-4206-885e-6dc1519f2049.png)
+
+출처 : [MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+
 ---
 
+<br>
+
+## Module
+
+
+
+---
 
 <br>
 
@@ -586,7 +698,8 @@ $.get('url 주소/products/1', function(response) {
 
 - 왜 strict 모드를 사용하는가?
 
-  - "보안" 자바스크립트를 작성하는 쉬운 방법이기 때문입니다. 다른 이유는 "올바르지 않은 문법" 을 사전에 검출할 수 있습니다.
+  - "보안" 자바스크립트를 작성하는 쉬운 방법이기 때문입니다.
+  - 다른 이유는 "올바르지 않은 문법" 을 사전에 검출할 수 있습니다.
   - strict 모드는 쓰기금지 프로퍼티의 정의, getter 전용 프로터피, 존재 하지 않는 프로퍼티, 존재하지 않는 변수, 존재하지 않는 객체에 대해 에러를 발생시킵니다.
 
 > 즉, 미리 오류가 발생할 것 같은것을 사전에 차단하는 거라고 생각하면 편하다.
@@ -595,18 +708,49 @@ $.get('url 주소/products/1', function(response) {
 
 
 ### slice() 함수
+> 배열의 일부분을 잘라내어, 새로운 배열로 리턴하기 위해서는 slice() 함수를 사용합니다.
+
+```js
+arr.slice([begin[, end]])
+
+파라미터
+begin: 잘라낼 배열의 시작 index
+
+end: 잘라낼 배열의 종료 index
+end: 가 생략되면, begin index부터 배열릐 끝까지 잘라냅니다.
+arr.slice(1, 3); 
+배열의 arr[1] ~ arr[3] 까지(arr[3]은 미포함)를 복사한, 새 배열을 리턴합니다.
+ 
+
+arr.slice(1); 
+두번째 파라미터인 end 값이 입력되지 않으면,
+시작 index부터 배열의 끝까지를 복사한, 새 배열을 리턴합니다.
+
+ 
+
+arr.slice(-3, -1); 
+begin index나 end index가 음수이면,
+배열의 끝에서부터의 길이를 나타냅니다.
+```
+
 
 
 <br>
 
 
-### javaScript map() 함수
+### map() 함수
+> map() 함수는 callbackFunction 을 실행한 결과를 가지고 새로운 배열을 만들 떄 사용한다.
+
+구문
+```js
+array.map(callbackFunction(currentValue, index, array), thisArg)
+```
 
 
 <br>
 
 
-### 비동기 처러? 그게 뭔데   
+### 비동기 처리? 그게 뭔데   
 - 자바스크립트의 비동기 처리란 특정 코드의 연산이 끝날 때까지 코드의 실행을 멈추지 않고 다음 코드를 먼저 실행하는 자바스크립트의 특성을 의미한다.
 
 - 비동기 처리의 첫 번째 사례
