@@ -2,7 +2,7 @@
 
 # 목차
 - [Vue.js](#vuejs)
-
+- [Component](#component)
 
 
 # Vue.js
@@ -475,4 +475,122 @@ pooney의 전역 컴포넌트입니다.
 
 ## 컴포넌트간 통신
 
-✔️ 상위에서 하위 컴포넌트로 data 전달하는 방법  
+> 상위 -> 하위로는 props라는 특별한 속성을 전달하고,  
+> 하위 -> 상위로는 기본적으로 이벤트만 전달 가능하다.   
+
+
+```
+컴포넌트 트리 모습
+
+Root Instance (main.js)
+
+   └─ 최상위 컴포넌트 (App.vue)
+           └─ ParentComponent
+                   └─ ChildComponent
+```
+
+
+
+✔️ Props 속성을 이용하여 상위에서 하위 컴포넌트에 데이터 전달
+
+예제
+
+```html
+<!-- parent Component -->
+<template>
+  <div>
+    하위 컴포넌트에 데이터 값을 알려줍니다. 
+    <ChildComponent v-bind:childVaule="parentVaule" />
+  </div>
+</template>
+<script>
+  import ChildComponent from "@/components/childComponent.vue";
+  export default {
+    name: "ParentComponent",
+    components: { ChildComponent },
+    data: function () {
+      return { parentVaule: 20 };
+    },
+  };
+</script>
+```
+<br>
+
+`v-bind: 하단 컴포넌트에서 받을 props이름`을 사용하여 하단 컴포넌트에서 데이터를 전달 받을 수 있다.  
+v-bind는 생략 가능하며, `:하단 컴포넌트에서 받을 props 이름`로 사용해도 된다.
+
+```html
+<!--childComponent-->
+<template>
+  <button @click="updateParentValue">클릭시 부모의 데이터 값이 증가합니다.</button>
+</template>
+<script>
+  export default {
+    name: "ChildComponent",
+    methods: {
+      updateParentValue() {
+        this.$emit("childEvent");
+      },
+    },
+  };
+</script>
+```
+
+props에 v-bind에 등록해준 이름을 써주면 하단 컴포넌트에서도 쉽게 사용가능하다.
+
+<br>
+
+✔️하위 -> 상위 컴포넌트로 event 전달.
+
+전달방법  
+```
+이벤트 발생
+    this.$emit("이벤트명");
+
+이벤트 수신
+    <child v-on:이벤트명="상위 컴포넌트 메소드명"></child>
+```
+
+
+예제
+
+```html
+<!--childComponent-->
+<template>
+  <button @click="updateParentValue">클릭시 부모의 데이터 값이 증가합니다.</button>
+</template>
+<script>
+  export default {
+    name: "ChildComponent",
+    methods: {
+      updateParentValue() {
+        this.$emit("childEvent");
+      },
+    },
+  };
+</script>
+```
+
+```html
+<!-- parent Component -->
+<template>
+  <div><ChildComponent v-on:childEvent="updateParentValue" /></div>
+</template>
+<script>
+  import ChildComponent from "@/components/childComponent.vue";
+  export default {
+    name: "ParentComponent",
+    components: { ChildComponent },
+    data: function () {
+      return { parentVaule: 20 };
+    },
+    methods: {
+      updateParentValue() {
+        this.parentVaule++;
+        console.log(this.parentVaule);
+        // 21, 22, 22, 누를때마다 증가하는 것 확인 가능
+      },
+    },
+  };
+</script>
+```
