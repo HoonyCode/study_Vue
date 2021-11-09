@@ -12,7 +12,7 @@
 
 예제
 ```html
-<div id="app">
+<div id="#app">
   <div>data : {{message}}</div>
   <div>method kor : {{helloKor()}}</div>
   <div>method eng : {{helloEng()}}</div>
