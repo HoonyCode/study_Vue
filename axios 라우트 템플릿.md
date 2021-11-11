@@ -10,7 +10,7 @@ axios 라우트 템플릿에 대해 설명할 수 있다.
 - [목차](#목차)
   - [axios](#axios)
   - [vue-router](#vue-router)
-  - [교수님이 집어 주신 것](#교수님이-집어-주신-것)
+  - [교수님이 어 주신 것](#교수님이-어-주신-것)
 
 <br>
 
@@ -156,6 +156,26 @@ promise
 <br>
 
 
+axios API
+
+axios 대표 API
+
+<br>
+
+```js
+axios.get('URL 주소').then().catch()
+// 해당 URL 주소에 대해 HTTP GET 요청을 보냄.
+// 서버에서 보낸 데이터를 정상적으로 받아오면 then() 안에 정의된 로직이 실행되고,
+//데이터를 받아올 때 오류가 발생하면 catch()에 정의한 로직이 실행.
+
+axios.post('URL 주소').then().catch();
+// 해당 URL 주소에 대해 HTTP POST 요청을 보냄.
+// then()과 catch()는 get 방식과 동일
+
+axios({옵션 속성})
+//HTTP 요청에 대한 자세한 속성들을 직접 정의하여 보낼 수 있다.
+//데이터 요청을 보낼 URL, HTTP 요청방식, 보내는 데이터 유형 등
+```
 
 
 ---
@@ -296,7 +316,6 @@ $router, $route
 
 ```this.$router   this.$route.params.no   this.$route.path```
 
----
 
 이름을 가지는 라우트 
 > 라우트는 연결하거나 탐색을 수행할 때 이름이 있는 라우트를 사용한다.  
@@ -325,7 +344,7 @@ $router.push('home')
 
 
 
-
+---
 
 ## 교수님이 어 주신 것
 
