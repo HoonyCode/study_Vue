@@ -143,4 +143,20 @@ lt -p 8000 -s chancethecoder
 your url is: https://chancethecoder.localtunnel.me
 ```
 
+페어의 restapi 데이터에 접근하는 방법  
+<br>
+
+```cmd
+lt -p 포트번호를 하면 쓸 수 있다.
+단, cmd 창을 닫으면 포트가 꺼진다.
+```
+
+cmd 사용할 때 나오는 화면  
+<br>
+
+<img src="https://user-images.githubusercontent.com/44612896/141392451-451db954-1fef-4575-8ac4-e82f0e3781e7.png" width="300">
+
+
 [ref : 리눅스-로컬-서버-외부에서-접속하기](https://chancethecoder.tistory.com/entry/%EB%A6%AC%EB%88%85%EC%8A%A4-%EB%A1%9C%EC%BB%AC-%EC%84%9C%EB%B2%84-%EC%99%B8%EB%B6%80%EC%97%90%EC%84%9C-%EC%A0%91%EC%86%8D%ED%95%98%EA%B8%B0-localtunnel)
+
+---
