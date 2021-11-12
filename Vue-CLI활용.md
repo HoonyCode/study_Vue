@@ -7,6 +7,7 @@
 - [목차](#목차)
 - [Vue Cli 만들어보기](#vue-cli-만들어보기)
 - [Vue에서 bootstrap 사용하기](#vue에서-bootstrap-사용하기)
+- [localtunnel 사용하기](#localtunnel-사용하기)
 
 <br>
 
@@ -31,7 +32,9 @@ npm run serve
 
 ```
   
-정상적으로 작동 되었을 때
+정상적으로 작동 되었을 때  
+<br>
+
 <img src='https://user-images.githubusercontent.com/44612896/141388786-208b6083-e57a-4b99-8c58-12e14739a465.png'>
 
 <br>
@@ -113,3 +116,31 @@ bootstarp vue의 버전을 안정화 버전인 4.5.3으로 바꾸어 준다.
 
 ---
 
+<br>
+
+
+# localtunnel 사용하기
+<br>
+
+Localtunnel 사용법  
+Localtunnel 에 대한 설명은 아래 사이트에서 확인 가능합니다. 
+
+- [Web page](https://localtunnel.github.io/www/)
+- [Github page](https://github.com/localtunnel/localtunnel)
+
+
+사용해야 하는 명령어는 다음과 같습니다.  
+
+```cmd
+# npm이 설치되어 있다고 가정
+npm install -g localtunnel
+
+# p : port 지정
+# s : subdomain 지정. 지정 안할 경우 임의 값
+lt -p 8000 -s chancethecoder
+
+# xxx.localtunnel.me 로 접속 가능
+your url is: https://chancethecoder.localtunnel.me
+```
+
+[ref : 리눅스-로컬-서버-외부에서-접속하기](https://chancethecoder.tistory.com/entry/%EB%A6%AC%EB%88%85%EC%8A%A4-%EB%A1%9C%EC%BB%AC-%EC%84%9C%EB%B2%84-%EC%99%B8%EB%B6%80%EC%97%90%EC%84%9C-%EC%A0%91%EC%86%8D%ED%95%98%EA%B8%B0-localtunnel)
