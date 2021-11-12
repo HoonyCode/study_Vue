@@ -9,6 +9,7 @@
 - [Vue에서 bootstrap 사용하기](#vue에서-bootstrap-사용하기)
 - [localtunnel 사용하기](#localtunnel-사용하기)
 - [게시판 Vue CLI로 변경하기](#게시판-vue-cli로-변경하기)
+- [Props / Events](#props--events)
 
 <br>
 
@@ -453,4 +454,82 @@ http.delete(`/api/board/${this.$route.params.no}`) querys => params 변경
 this.$router.push({ name: "BoardList" }); name으로 변경 
 
 ```
+
+---
+
+<br>
+
+# Props / Events
+
+부모 -> 자식으로 (Props)
+
+- 부모
+
+```js
+<HelloWorld :msg="msg" />
+
+import HelloWorld from "@/components/HelloWorld.vue";
+
+data() {
+    return {
+        msg: "전송될 메세지",
+    };
+},
+````
+
+- 자식 부분
+
+```js
+<h1>{{ msg }}</h1>
+
+props: {
+  msg: String,
+},
+
+```
+
+<br>
+
+자식에서 -> 부모로 (Evemts)
+
+- 자식
+
+```js
+<button @click="send">부모로 전송</button>
+
+send() {
+    console.log("ok");
+    // 자식에서 부모로 보낼 떄
+    // $emit 함수 => vue가 가지고 있는 함수이다.
+    this.$emit('나만의 이벤트 이름', param);
+     this.$emit("kkk", 1, "ssafy"); // 1 -> a ssafy -> b로 받게 된다.
+     this.$emit("kkk", { age: 26, name: "김영훈" }); //객체로 보내는 것이 권장이다.
+},
+```
+
+- 부모
+
+```js
+//@kkk 를 받으면 aaa가 동작할것이다.
+<hello-world @kkk="aaa" :msg="msg" />
+
+// 받을 메소드 설정한다.
+methods: {
+    aaa(a, b) {
+      console.log(a, b, "자식한테 이벤트 왔어요!"); // a : 1  b : ssafy
+    },
+
+    aaa({ name, age }) {
+      console.log(name, age, "자식한테 이벤트 왔어요!");
+    },
+
+    aaa({ payload }) {
+      console.log(payload.name, payload.age, "자식한테 이벤트 왔어요!");
+    },
+}
+```
+
+--- 
+
+
 
