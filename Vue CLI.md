@@ -47,7 +47,7 @@ Vue CLI 사용하기 위해 설치 해야할 것.
     [@vue/cli](https://www.npmjs.com/package/@vue/cli)로 들어간다.      
     ```cmd
     npm install -g @vue/cli
-    vue veate 프로젝트이름
+    vue create 프로젝트이름
     ```  
 
 4. 프로젝트 생성
