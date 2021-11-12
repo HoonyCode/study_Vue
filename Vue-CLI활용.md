@@ -94,7 +94,7 @@ Vue.use(IconsPlugin)
 
 bootstrap vue 예제
 
-```
+```js
 태그를 신기하게 <b-button>으로 사용한다.
 
 <div>
