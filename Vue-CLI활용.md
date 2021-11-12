@@ -151,8 +151,7 @@ lt -p 포트번호를 하면 쓸 수 있다.
 단, cmd 창을 닫으면 포트가 꺼진다.
 ```
 
-cmd에서 lt -p portnumber 사용시 나오는 화면  
-<br>
+`cmd에서 lt -p portnumber 사용시 나오는 화면`  
 
 <br>
 
