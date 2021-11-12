@@ -155,7 +155,7 @@ lt -p 포트번호를 하면 쓸 수 있다.
 
 <br>
 
-<img src="https://user-images.githubusercontent.com/44612896/141392451-451db954-1fef-4575-8ac4-e82f0e3781e7.png" width="300">
+<img src="https://user-images.githubusercontent.com/44612896/141392451-451db954-1fef-4575-8ac4-e82f0e3781e7.png" width="500">
 
 
 [ref : 리눅스-로컬-서버-외부에서-접속하기](https://chancethecoder.tistory.com/entry/%EB%A6%AC%EB%88%85%EC%8A%A4-%EB%A1%9C%EC%BB%AC-%EC%84%9C%EB%B2%84-%EC%99%B8%EB%B6%80%EC%97%90%EC%84%9C-%EC%A0%91%EC%86%8D%ED%95%98%EA%B8%B0-localtunnel)
