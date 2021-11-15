@@ -8,6 +8,7 @@
   - [state 사용 예제](#state-사용-예제)
   - [Mutations을 사용 예제](#mutations을-사용-예제)
   - [Action 사용 예제](#action-사용-예제)
+- [교수님 설명](#교수님-설명)
 
 
 # bootstrap vue 리뷰
@@ -419,4 +420,31 @@ Dom => (dispatch) => actions => (commit) => mutations
 <br>
 
 ---
+
+# 교수님 설명
+
+✅ mapgetters vs mapstate
+
+```
+mapgetters : state 값을 가공해서 가지고 올 때 사용
+mapstate : state 값을 그대로 가지고 올 때 사용
+```
+
+
+✅ actions / mutations
+
+```
+actions : 시간이 많이 걸리는 것, 동기
+actions의 첫번째 인자는 context
+
+mutations : 시간 안 걸리는 것 즉, 오로지 set method만 있다고 생각해도 무방하다. 
+값을 넣는 연산만 하는거구나~ 생각 (단지 상태값을 수정하는 곳)
+mutation의 첫번째 인자는 : state
+```
+
+✅ getters
+
+```md
+...mapgetters 를 이용해서 데이터를 저장해서 사용하는게 권장이다.
+```
 
