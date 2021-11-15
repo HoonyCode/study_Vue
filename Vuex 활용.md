@@ -5,6 +5,9 @@
 - [목차](#목차)
 - [bootstrap vue 리뷰](#bootstrap-vue-리뷰)
 - [vuex](#vuex)
+  - [state 사용 예제](#state-사용-예제)
+  - [Mutations을 사용 예제](#mutations을-사용-예제)
+  - [Action 사용 예제](#action-사용-예제)
 
 
 # bootstrap vue 리뷰
@@ -175,6 +178,9 @@ export default new Vuex.Store({
   },
 
 ```
+---
+
+## state 사용 예제
 
 ✅ step02
 
@@ -263,3 +269,154 @@ export default new Vuex.Store({
   },
 });
 ```
+
+---
+
+## Mutations을 사용 예제
+
+<br>
+
+Mutations
+
+```
+state의 값을 변경하기 위해 사용
+각 컴포넌트에서 State의 값을 직접 변경하는 것은 권잘하지 않는 방식이다.
+state의 값의 추적을 위해 동기적 기능에 사용
+Mutations는 직접 호출이 불가능하고 store.commit('정의된 이름')으로 호출할 수 있다.
+```
+
+
+✅ step04
+
+```js
+
+// subject.vue
+  methods: {
+    addCount: function() {
+      this.count += 1;
+      // this.$store.state.count++; 우리는 여태까지 state에 직접 접근했다.
+      this.$store.commit('ADD_ONE'); // commit('mutations의 이름') mutations의 이름은 대문자로 하는 경우가 있다.
+    },
+    addTenCount: function() {
+      this.count += 10;
+      this.$store.commit('ADD_COUNT', 10);
+    },
+    addObjCount: function() {
+      let num = Math.round(Math.random() * 100);
+      console.log(num);
+      this.count += num;
+      this.$store.commit('ADD_OBJ_COUNT', { num });
+    },
+  },
+
+
+// store/index.js
+  mutations: {
+    ADD_ONE(state) {
+      state.count += 1;
+    },
+    ADD_COUNT(state, payload) { // 그냥 단일 값이 넘어 올 때
+      state.count += payload;
+    },
+    ADD_OBJ_COUNT(state, payload) { // 객체가 넘어 올 떄
+      state.count += payload.num;
+    },
+  },
+
+  getters: 동일
+```
+
+
+✅ step05
+
+```js
+//
+import { mapMutations } from "vuex";
+
+methods: {
+    //mapMutations를 써서 편하게 사용할 수 있다.
+    ...mapMutations({
+      addMOne: "ADD_ONE",
+      addMTenCount: "ADD_TEN_COUNT",
+      addMObjCount: "ADD_OBJ_COUNT",
+    }),
+    addCount: function() {
+      this.count += 1;
+      // this.$store.commit('addOne');
+      this.addMOne(); // 등록하지 않았을 때  this.$store.commit('ADD_ONE'); 이렇게 사용 했다.
+    },
+    addTenCount: function() {
+      this.count += 10;
+      // this.$store.commit('addCount', 10);
+      this.addMTenCount(10);
+    },
+    addObjCount: function() {
+      let num = Math.round(Math.random() * 100);
+      this.count += num;
+      // this.$store.commit('addObjCount', { num });
+      this.addMObjCount({ num });
+    },
+  },
+
+```
+
+
+---
+
+<br>
+
+## Action 사용 예제
+
+<br>
+
+Actions
+
+```
+비동기 작업의 결과 적용하려고 할 때
+Mutations는 상태 관리를 위해 동기적으로 처리하고 비동기적 처리는 Actions가 담당
+Actions는 비동기 로직의 처리가 종료되면 Mutations를 호출
+동기와 비동기 처리를 나누기 위해서 Actions와 Mutations를 나뉘어 놓은 것 같다.
+```
+
+✅ step06
+
+```js
+// store/index.js 부분 actions 추가되었다.
+  actions: {
+    asyncAddOne(context) { // context를 프로젝트라고 생각하면 된다. // mutations을 참조할 수 있는 객체라고 생각하면 된다.
+      setTimeout(() => { // 콜백함수 비동기 예시.
+        context.commit("ADD_ONE");
+      }, 2000);
+    },
+  },
+
+
+// subject.vue
+    asyncCount() {
+      this.$store.dispatch("asyncAddOne"); // mapActions가 나올 것 같다.
+    },
+```
+
+✅ step07
+
+우리가 결과적으로 써야하는 것
+
+```js
+import { mapMutations, mapActions } from "vuex";
+
+    ...mapActions(["asyncAddOne"]),
+    asyncCount() {
+      this.asyncAddOne(); //this.$store.dispatch("asyncAddOne"); // 바뀌었다.
+    },
+
+```
+
+```
+기억하자❗
+Dom => (dispatch) => actions => (commit) => mutations
+```
+
+<br>
+
+---
+
