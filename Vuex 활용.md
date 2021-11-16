@@ -446,5 +446,6 @@ mutation의 첫번째 인자는 : state
 
 ```md
 ...mapgetters 를 이용해서 데이터를 저장해서 사용하는게 권장이다.
+computed
 ```
 
