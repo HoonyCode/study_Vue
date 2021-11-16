@@ -134,7 +134,7 @@ new Vue({
 ✅ vuex 설치 방법
 
 ```cmd
-npm install vuex --save
+npm install vuex --save//default(--save)
 vue add vuex
 
 vuex를 설치하면 store/index.js가 생길 것이다.
